@@ -49,15 +49,14 @@ const Benefit = () => {
       >
         {/* Gambar Bus */}
         <div className="relative w-full lg:w-1/2 h-[300px] flex justify-center lg:justify-start mb-6 lg:mb-0 order-1 lg:order-none">
-          <div className="absolute  top-0 z-10 mt-6 lg:mt-0">
-            <Image
-              src="/assets/G4.png"
-              alt="Bus 32 Seat"
-              width={550}
-              height={330}
-              className="object-contain drop-shadow-2xl group-hover:scale-105 transition-all duration-500"
-            />
-          </div>
+<div className="w-full lg:w-1/2 flex justify-center items-center mb-6 lg:mb-0 order-1 lg:order-none">
+  <Image
+    src="/assets/G4.png"
+    alt="Bus 32 Seat"
+    fill
+    className="object-contain drop-shadow-2xl group-hover:scale-105 transition-all duration-500 relative"
+  />
+</div>
         </div>
 
         {/* Teks Interaktif */}
