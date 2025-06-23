@@ -36,7 +36,7 @@ const Galeri = () => {
     { src: "/assets/g1.jpeg", caption: "Bigbus seat 50" },
     { src: "/assets/g2.jpeg", caption: "Bigbus seat 50" },
     { src: "/assets/g3.jpeg", caption: "Medium Long seat 39" },
-    { src: "/assets/g4.jpeg", caption: "Medium seat 29" },
+    { src: "/assets/g44.jpeg", caption: "Medium seat 29" },
   ];
 
   return (

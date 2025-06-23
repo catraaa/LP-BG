@@ -49,7 +49,7 @@ const Benefit = () => {
       >
         {/* Gambar Bus */}
         <div className="relative w-full lg:w-1/2 h-[300px] flex justify-center lg:justify-start mb-6 lg:mb-0 order-1 lg:order-none">
-          <div className="absolute -left-10 lg:-left-24 top-0 z-10 mt-6 lg:mt-0">
+          <div className="absolute  top-0 z-10 mt-6 lg:mt-0">
             <Image
               src="/assets/G4.png"
               alt="Bus 32 Seat"
