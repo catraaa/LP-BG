@@ -12,7 +12,7 @@ const defaultMeta = {
   robots: "follow, index",
   // change with url of your image (recommended dimension = 1.91:1)
   // used in twitter, facebook, etc. card when link copied in tweet/status
-  image: "/assets/logo1.png",
+  image: "/assets/logo.png",
   author: "Beni Tiyas Kristanti",
 };
 
@@ -76,7 +76,7 @@ const SeoHead = (props) => {
       ))}
       {/* Windows 8 app icon */}
       <meta name="msapplication-TileColor" content="#F53838" />
-      <meta name="msapplication-TileImage" content="/assets/logo1.png" />
+      <meta name="msapplication-TileImage" content="/assets/logo.png" />
       {/* Accent color on supported browser */}
       <meta name="theme-color" content="#F53838" />
     </Head>
@@ -88,7 +88,7 @@ const favicons = [
   {
     rel: "apple-touch-icon",
     sizes: "57x57",
-    href: "/assets/logo1.png",
+    href: "/assets/logo.png",
   },
   {
     rel: "apple-touch-icon",

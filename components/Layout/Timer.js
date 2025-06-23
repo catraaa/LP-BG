@@ -3,9 +3,9 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const marketings = [
-  { label: "Marketing Malang", number: "6281234567890" },
-  { label: "Marketing Malang", number: "6282234567890" },
-  { label: "Marketing Bekasi", number: "6283234567890" },
+  { label: "Marketing Malang", number: "6281139708888" },
+  { label: "Marketing Malang", number: "6281130569888" },
+  { label: "Marketing Bekasi", number: "6281130570888" },
   { label: "Marketing Bekasi", number: "6283234567890" },
 ];
 
