@@ -43,7 +43,7 @@ const Benefit = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.3 }}
         variants={textVariant}
-        className="relative flex flex-col lg:flex-row bg-white shadow-md rounded-[30px] overflow-hidden group transition-all duration-500 hover:bg-blue-500"
+        className="relative flex flex-col lg:flex-row bg-white-500 shadow-md rounded-3xl overflow-hidden group transition-all duration-500 hover:bg-blue-500"
       >
         {/* Gambar Bus */}
         <div className="relative w-full lg:w-1/2 h-[300px] lg:h-auto flex items-center justify-center bg-transparent z-10">
@@ -59,7 +59,6 @@ const Benefit = () => {
 
         {/* Teks dan Tab */}
         <div className="w-full lg:w-1/2 p-6 lg:p-10 flex flex-col justify-center z-20">
-          {/* Judul */}
           <motion.h3
             variants={textVariant}
             className="text-2xl lg:text-3xl font-bold mb-2 text-center lg:text-left text-black group-hover:text-white-500 transition-colors duration-300"
@@ -68,18 +67,17 @@ const Benefit = () => {
           </motion.h3>
           <div className="w-16 h-1 mb-6 mx-auto lg:mx-0 bg-blue-500 group-hover:bg-red-500 transition-colors duration-300 rounded-full" />
 
-          {/* Deskripsi */}
           <p className="text-sm lg:text-base mb-6 text-black group-hover:text-white-500 transition-colors duration-300">
             Bagong Pariwisata menyediakan transportasi sewa berupa bus pariwisata Big Bus dan Medium Bus dengan body AVANTE H7 Facelift tahun 2023 dan sasis HINO EURO 4. Kami melayani overland Jawa–Bali, Ziarah Wali, MICE, Study Tour, dan City Tour.
           </p>
 
           {/* Tab Button */}
-          <div className="flex space-x-4 mb-4">
+          <div className="flex space-x-4 mb-4 border-b border-blue-100">
             {tabs.map((tab) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`text-sm font-semibold relative transition-colors duration-300 ${
+                className={`relative pb-1 text-sm font-semibold transition-colors duration-300 ${
                   activeTab === tab
                     ? "text-blue-500 group-hover:text-white-500"
                     : "text-blue-500 group-hover:text-white-500"
@@ -87,10 +85,7 @@ const Benefit = () => {
               >
                 {tab}
                 {activeTab === tab && (
-                  <motion.div
-                    layoutId="underline"
-                    className="absolute -bottom-1 left-0 w-full h-[2px] bg-blue-500 group-hover:bg-red-500"
-                  />
+                  <div className="absolute left-0 -bottom-0 w-full h-0.5 bg-blue-500 group-hover:bg-white-500 transition-all duration-300" />
                 )}
               </button>
             ))}
