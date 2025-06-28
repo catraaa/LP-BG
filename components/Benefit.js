@@ -27,7 +27,7 @@ const content = {
   ],
   Keunggulan: [
     "🚌 Unit bus bersih, nyaman, dan full fasilitas.",
-    "👨‍✈️ Driver berpengalaman dan ramah.",
+    "👨‍✈️ Driver berpengalaman, bersertifikat, dan memiliki etika baik dan ramah.",
     "📞 Layanan pelanggan responsif 24 jam.",
     "💰 Harga kompetitif dan bisa disesuaikan kebutuhan.",
   ],
@@ -68,37 +68,45 @@ const Benefit = () => {
           <div className="w-16 h-1 mb-6 mx-auto lg:mx-0 bg-blue-500 group-hover:bg-red-500 transition-colors duration-300 rounded-full" />
 
           <p className="text-sm lg:text-base mb-6 text-black group-hover:text-white-500 transition-colors duration-300">
-            Bagong Pariwisata menyediakan transportasi sewa berupa bus pariwisata Big Bus dan Medium Bus dengan body AVANTE H7 Facelift tahun 2023 dan sasis HINO EURO 4. Kami melayani overland Jawa–Bali, Ziarah Wali, MICE, Study Tour, dan City Tour.
+            Bagong Pariwisata menyediakan transportasi sewa berupa bus pariwisata Big Bus, Medium Canter Bus, Medium Long Bus, dan Hiace Premio dengan body AVANTE H7 Facelift dan sasis HINO EURO 4. Kami melayani overland Jawa–Bali, Luar Pulau, Ziarah Wali, MICE, Study Tour, dan City Tour.
           </p>
 
           {/* Tab Button */}
-          <div className="flex space-x-4 mb-4 border-b border-blue-100">
-            {tabs.map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`relative pb-1 text-sm font-semibold transition-colors duration-300 ${
-                  activeTab === tab
-                    ? "text-blue-500 group-hover:text-white-500"
-                    : "text-blue-500 group-hover:text-white-500"
-                }`}
-              >
-                {tab}
-                {activeTab === tab && (
-                  <div className="absolute left-0 -bottom-0 w-full h-0.5 bg-blue-500 group-hover:bg-white-500 transition-all duration-300" />
-                )}
-              </button>
-            ))}
-          </div>
+          <div className="flex space-x-4 mb-4">
+  {tabs.map((tab) => (
+    <button
+      key={tab}
+      onClick={() => setActiveTab(tab)}
+      className={`relative pb-1 text-sm font-semibold transition-colors duration-300 ${
+        activeTab === tab
+          ? "text-blue-500 group-hover:text-white-500"
+          : "text-blue-500 group-hover:text-white-500"
+      }`}
+    >
+      {tab}
+      <AnimatePresence>
+        {activeTab === tab && (
+          <motion.div
+            initial={{ scaleX: 0, originX: 0.5 }}
+            animate={{ scaleX: 1 }}
+            exit={{ scaleX: 0, originX: 0.5 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            className="absolute left-0 -bottom-0 w-full h-0.5 bg-blue-500 group-hover:bg-white-500 origin-center"
+          />
+        )}
+      </AnimatePresence>
+    </button>
+  ))}
+</div>
 
           {/* Isi Tab */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeTab}
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 10 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.4 }}
               className="space-y-2 min-h-[80px]"
             >
               {activeTab === "Misi" &&
