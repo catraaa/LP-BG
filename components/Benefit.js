@@ -2,16 +2,6 @@
 
 import React, { useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-
-const textVariant = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
 
 const tabs = ["Visi", "Misi", "Keunggulan"];
 
@@ -38,13 +28,7 @@ const Benefit = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 mt-44 py-10" id="visi-misi">
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-        variants={textVariant}
-        className="relative flex flex-col lg:flex-row bg-white-500 shadow-md rounded-3xl overflow-hidden group transition-all duration-500 hover:bg-blue-500"
-      >
+      <div className="relative flex flex-col lg:flex-row bg-white-500 shadow-md rounded-3xl overflow-hidden group transition-all duration-500 hover:bg-blue-500">
         {/* Gambar Bus */}
         <div className="relative w-full lg:w-1/2 h-[300px] lg:h-auto flex items-center justify-center bg-transparent z-10">
           <Image
@@ -59,12 +43,9 @@ const Benefit = () => {
 
         {/* Teks dan Tab */}
         <div className="w-full lg:w-1/2 p-6 lg:p-10 flex flex-col justify-center z-20">
-          <motion.h3
-            variants={textVariant}
-            className="text-2xl lg:text-3xl font-bold mb-2 text-center lg:text-left text-black group-hover:text-white-500 transition-colors duration-300"
-          >
+          <h3 className="text-2xl lg:text-3xl font-bold mb-2 text-center lg:text-left text-black group-hover:text-white-500 transition-colors duration-300">
             Bagong Biru Pariwisata
-          </motion.h3>
+          </h3>
           <div className="w-16 h-1 mb-6 mx-auto lg:mx-0 bg-blue-500 group-hover:bg-red-500 transition-colors duration-300 rounded-full" />
 
           <p className="text-sm lg:text-base mb-6 text-black group-hover:text-white-500 transition-colors duration-300">
@@ -73,65 +54,45 @@ const Benefit = () => {
 
           {/* Tab Button */}
           <div className="flex space-x-4 mb-4">
-  {tabs.map((tab) => (
-    <button
-      key={tab}
-      onClick={() => setActiveTab(tab)}
-      className={`relative pb-1 text-sm font-semibold transition-colors duration-300 ${
-        activeTab === tab
-          ? "text-blue-500 group-hover:text-white-500"
-          : "text-blue-500 group-hover:text-white-500"
-      }`}
-    >
-      {tab}
-      <AnimatePresence>
-        {activeTab === tab && (
-          <motion.div
-            initial={{ scaleX: 0, originX: 0.5 }}
-            animate={{ scaleX: 1 }}
-            exit={{ scaleX: 0, originX: 0.5 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="absolute left-0 -bottom-0 w-full h-0.5 bg-blue-500 group-hover:bg-white-500 origin-center"
-          />
-        )}
-      </AnimatePresence>
-    </button>
-  ))}
-</div>
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                onClick={() => setActiveTab(tab)}
+                className={`pb-1 text-sm transition-colors duration-300 ${
+                  activeTab === tab
+                    ? "text-black font-bold"
+                    : "text-blue-500 group-hover:text-white-500"
+                }`}
+              >
+                {tab}
+              </button>
+            ))}
+          </div>
 
           {/* Isi Tab */}
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeTab}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.4 }}
-              className="space-y-2 min-h-[80px]"
-            >
-              {activeTab === "Misi" &&
-                content[activeTab].map((item, idx) => (
-                  <li
-                    key={idx}
-                    className="text-sm lg:text-base list-disc ml-5 text-black group-hover:text-white-500 transition-colors"
-                  >
-                    {item}
-                  </li>
-                ))}
+          <div className="space-y-2 min-h-[80px]">
+            {activeTab === "Misi" &&
+              content[activeTab].map((item, idx) => (
+                <li
+                  key={idx}
+                  className="text-sm lg:text-base list-disc ml-5 text-black group-hover:text-white-500 transition-colors"
+                >
+                  {item}
+                </li>
+              ))}
 
-              {(activeTab === "Visi" || activeTab === "Keunggulan") &&
-                content[activeTab].map((item, idx) => (
-                  <p
-                    key={idx}
-                    className="text-sm lg:text-base text-black group-hover:text-white-500 transition-colors"
-                  >
-                    {item}
-                  </p>
-                ))}
-            </motion.div>
-          </AnimatePresence>
+            {(activeTab === "Visi" || activeTab === "Keunggulan") &&
+              content[activeTab].map((item, idx) => (
+                <p
+                  key={idx}
+                  className="text-sm lg:text-base text-black group-hover:text-white-500 transition-colors"
+                >
+                  {item}
+                </p>
+              ))}
+          </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 };
