@@ -60,12 +60,6 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-2">
               <Image src="/assets/Icon/wa.png" alt="WA" width={20} height={20} />
-              <a href="https://wa.me/6281131101888" target="_blank" rel="noopener noreferrer">
-                +62 811-3110-1888
-              </a>
-            </li>
-            <li className="flex items-center gap-2">
-              <Image src="/assets/Icon/wa.png" alt="WA" width={20} height={20} />
               <a href="https://wa.me/6281139708888" target="_blank" rel="noopener noreferrer">
                 +62 811-3970-8888
               </a>
@@ -91,13 +85,13 @@ const Footer = () => {
             </li>
             <li className="flex items-center gap-2">
               <Image src="/assets/Icon/wa.png" alt="WA" width={20} height={20} />
-              <a href="https://wa.me/6281212345678" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/6281130570888" target="_blank" rel="noopener noreferrer">
                 +62 812-1234-5678
               </a>
             </li>
             <li className="flex items-center gap-2">
               <Image src="/assets/Icon/wa.png" alt="WA" width={20} height={20} />
-              <a href="https://wa.me/6281998765432" target="_blank" rel="noopener noreferrer">
+              <a href="https://wa.me/6281133317777" target="_blank" rel="noopener noreferrer">
                 +62 819-9876-5432
               </a>
             </li>

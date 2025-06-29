@@ -44,7 +44,7 @@ const Hero = () => {
           viewport={{ once: false }}
           className="text-base sm:text-lg md:text-lg mt-4 max-w-3xl text-white-500"
         >
-          Bagong Pariwisata berfokus dalam menyewakan bus pariwisata yaitu Big Bus, Medium Canter Bus, Medium Long Bus, dan Hiace Premio.
+          Bagong Pariwisata berfokus dalam menyewakan bus pariwisata yaitu Big Bus, Medium Canter Bus, Medium Long Bus, Micro Bus, dan Hiace Premio.
           Dengan ini kami siap untuk melayani perjalanan di dalam provinsi, luar provinsi, maupun luar pulau.
         </motion.p>
 

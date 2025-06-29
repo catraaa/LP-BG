@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { db } from "@/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 import {
   FaToilet,
@@ -15,6 +17,7 @@ import { GiPillow, GiMicrophone } from "react-icons/gi";
 
 const Pricing = () => {
   const [selectedCategory, setSelectedCategory] = useState("Semua");
+  const [projects, setProjects] = useState([]);
 
   const categories = [
     "Semua",
@@ -32,50 +35,14 @@ const Pricing = () => {
     "Marketing Jabodetabek 2": "https://wa.me/6281133317777",
   };
 
-  const projects = [
-    {
-      image: "/assets/coba2.png",
-      title: "Big Bus",
-      category: "Big Bus",
-      description: {
-        seat: 11,
-        toilet: "Ya",
-        smoking: "Ya",
-        cctv: "2",
-        tv: 2,
-        bantal: "Ya",
-        audio: "Ya",
-      },
-    },
-    {
-      image: "/assets/coba2.png",
-      title: "Medium Canter",
-      category: "Medium Canter",
-      description: {
-        seat: 29,
-        toilet: "-",
-        smoking: "-",
-        cctv: "2",
-        tv: 1,
-        bantal: "Ya",
-        audio: "Ya",
-      },
-    },
-    {
-      image: "/assets/hiace.png",
-      title: "Hiace Premio",
-      category: "Hiace Premio",
-      description: {
-        seat: 14,
-        toilet: "Tidak",
-        smoking: "Tidak",
-        cctv: "Ya",
-        tv: 1,
-        bantal: "Tidak",
-        audio: "Ya",
-      },
-    },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      const snapshot = await getDocs(collection(db, "units"));
+      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+      setProjects(data);
+    };
+    fetchData();
+  }, []);
 
   const filteredProjects =
     selectedCategory === "Semua"
@@ -128,12 +95,14 @@ const Pricing = () => {
               className="group bg-white max-w-sm w-full mx-auto rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
             >
               <div className="relative h-48 w-full">
-                <Image
-                  src={project.image}
-                  alt={project.title}
-                  layout="fill"
-                  objectFit="cover"
-                />
+<Image
+  src={project.imageUrl}
+  alt={project.title}
+  width={500}
+  height={300}
+  className="rounded-lg"
+/>
+
               </div>
               <div className="p-4 flex flex-col flex-grow text-left">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-500 transition-colors duration-300">
@@ -141,22 +110,22 @@ const Pricing = () => {
                 </h3>
                 <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
                   <p className="flex items-center gap-2">
-                    <MdAirlineSeatReclineNormal /> Seat: {project.description.seat}
+                    <MdAirlineSeatReclineNormal /> Seat: {project.description?.seat}
                   </p>
                   <p className="flex items-center gap-2">
-                    <FaVideo /> CCTV: {project.description.cctv}
+                    <FaVideo /> CCTV: {project.description?.cctv}
                   </p>
                   <p className="flex items-center gap-2">
-                    <FaTv /> TV: {project.description.tv}
+                    <FaTv /> TV: {project.description?.tv}
                   </p>
                   <p className="flex items-center gap-2">
-                    <GiMicrophone /> Audio Android: {project.description.audio}
+                    <GiMicrophone /> Audio: {project.description?.audio}
                   </p>
                   <p className="flex items-center gap-2">
-                    <FaSmoking /> Smoking: {project.description.smoking}
+                    <FaSmoking /> Smoking: {project.description?.smoking}
                   </p>
                   <p className="flex items-center gap-2">
-                    <FaToilet /> Toilet: {project.description.toilet}
+                    <FaToilet /> Toilet: {project.description?.toilet}
                   </p>
                   <p className="flex items-center gap-2">
                     <FaFireExtinguisher /> APAR
@@ -170,8 +139,7 @@ const Pricing = () => {
                   <div className="relative inline-block w-full">
                     <select
                       onChange={(e) => {
-                        if (e.target.value)
-                          window.open(e.target.value, "_blank");
+                        if (e.target.value) window.open(e.target.value, "_blank");
                       }}
                       className="appearance-none w-full bg-blue-500 from-indigo-600 to-blue-500 text-white-500 text-sm font-medium px-4 py-2 pr-8 rounded-xl shadow hover:from-indigo-700 hover:to-blue-200 transition duration-300 cursor-pointer"
                       defaultValue=""

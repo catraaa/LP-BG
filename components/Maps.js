@@ -28,7 +28,7 @@ const Maps = () => {
           transition={{ duration: 0.6 }}
           className="text-3xl font-bold text-center text-gray-800 mb-2"
         >
-          Lokasi Cabang Kami
+          Lokasi Kami
         </motion.h2>
 
         {/* Underline Decorative */}

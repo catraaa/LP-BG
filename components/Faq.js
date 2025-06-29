@@ -9,17 +9,17 @@ const accordionContent = [
   {
     title: "Bus pariwisata mana yang paling direkomendasi?",
     description:
-      "Kami memiliki 4 jenis bus di antaranya Big Bus dengan Seat 45, Seat 32 (Legrest), Seat 59, dan Seat 48. Kami menjamin semua armada kami merupakan armada bus yang premium dengan fasilitas yang baik dan lengkap.",
+      "Kami memiliki 5 jenis akomodasi di antaranya Big Bus, Medium Long Bus, Medium Canter Bus, Micro Bus, dan Hiace Premio. Kami menjamin semua armada kami merupakan armada bus yang premium dengan fasilitas yang baik dan lengkap.",
   },
   {
     title: "Bagaimana cara memesan armada bus Bagong Pariwisata?",
     description:
-      "Untuk pemesanan armada bus kami, dapat langsung menghubungi kami melalui Whatsapp +62811-3970-8888",
+      "Untuk pemesanan armada bus kami, dapat langsung menghubungi kami melalui Whatsapp yang tertera atau datang langsung ke Garasi Bagong Biru Pariwisata Malang untuk area Jawa Timur dan Garasi Bekasi untuk area Jabodetabek. Kami akan membantu Anda dalam proses pemesanan.",
   },
   {
     title: "Apa saja layanan Bagong Pariwisata?",
     description:
-      "Kami melayani untuk overland Jawa – Bali, Ziarah Wali, MICE (Meeting, Inventions, Conventions, Exhibitions), Study Tour, dan City Tour. Kami akan melayani sesuai dengan kebutuhan Anda.",
+      "Kami melayani untuk overland Jawa – Bali, Luar Pulau, Ziarah Wali, MICE (Meeting, Inventions, Conventions, Exhibitions), Study Tour, dan City Tour. Kami akan melayani sesuai dengan kebutuhan Anda.",
   },
 ];
 

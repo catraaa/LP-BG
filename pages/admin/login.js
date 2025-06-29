@@ -1,0 +1,58 @@
+// pages/admin/login.js
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import app from "../../firebaseConfig";
+
+export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    const auth = getAuth(app);
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem("isAdmin", "true");
+      localStorage.setItem("adminEmail", email);
+      router.push("/admin/dashboard");
+    } catch (error) {
+      alert("Login gagal: " + error.message);
+    }
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow w-80">
+        <h2 className="text-lg font-bold mb-4 text-center">Login Admin</h2>
+
+        <input
+          type="email"
+          className="w-full px-4 py-2 border rounded mb-4"
+          placeholder="Masukkan Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+
+        <input
+          type="password"
+          className="w-full px-4 py-2 border rounded mb-4"
+          placeholder="Masukkan Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  );
+}

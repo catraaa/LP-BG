@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import Image from "next/image";
 
 const marketings = [
-  { label: "Marketing Malang", number: "6281139708888" },
-  { label: "Marketing Malang", number: "6281130569888" },
-  { label: "Marketing Bekasi", number: "6281130570888" },
-  { label: "Marketing Bekasi", number: "6283234567890" },
+  { label: "Jawa Timur 1", number: "6281139708888" },
+  { label: "Jawa Timur 2", number: "6281130569888" },
+  { label: "Jabodetabek 1", number: "6281130570888" },
+  { label: "Jabodetabek 2", number: "6281133317777" },
 ];
 
 const FloatingMarketing = () => {
@@ -16,7 +16,7 @@ const FloatingMarketing = () => {
     <div className="fixed bottom-24 right-4 md:bottom-14 md:right-10 z-50">
       {/* Panel Dropdown */}
       {open && (
-        <div className="bg-white-500 shadow-xl rounded-xl p-4 mb-3 border border-blue-500 w-[85vw] md:w-64">
+        <div className="bg-white-500 shadow-xl rounded-xl p-4 mb-3 border border-blue-500 w-[52] md:w-64">
           <h4 className="font-bold text-center text-black-500 mb-3">Marketing</h4>
           {marketings.map((item, idx) => (
             <a
@@ -24,7 +24,7 @@ const FloatingMarketing = () => {
               href={`https://wa.me/${item.number}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-blue-500 hover:bg-green-700 text-white-500 text-sm font-medium px-4 py-2 rounded-md mb-2 transition-all"
+              className="flex items-center gap-2 bg-blue-500 hover:bg-green-700 text-white-500 text-sm font-medium px-4 py-2 rounded-md mb-2 transition-all w-52"
             >
               <Image src="/assets/Icon/wa.png" alt="WA" width={20} height={20} />
               {item.label}
