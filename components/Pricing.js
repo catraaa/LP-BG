@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { db } from "@/firebase";
-import { collection, getDocs } from "firebase/firestore";
+import { supabase } from "@/lib/supabase";
 
 import {
   FaToilet,
@@ -28,20 +28,21 @@ const Pricing = () => {
     "Hiace Premio",
   ];
 
-  const marketingOptions = {
-    "Marketing Jawa Timur 1": "https://wa.me/6281139708888",
-    "Marketing Jawa Timur 2": "https://wa.me/6281130569888",
-    "Marketing Jabodetabek 1": "https://wa.me/6281130570888",
-    "Marketing Jabodetabek 2": "https://wa.me/6281133317777",
-  };
-
   useEffect(() => {
-    const fetchData = async () => {
-      const snapshot = await getDocs(collection(db, "units"));
-      const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setProjects(data);
+    const fetchProjects = async () => {
+      const { data, error } = await supabase
+        .from("buses")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (error) {
+        console.error("Error fetching bus data:", error);
+      } else {
+        setProjects(data || []);
+      }
     };
-    fetchData();
+
+    fetchProjects();
   }, []);
 
   const filteredProjects =
@@ -50,7 +51,7 @@ const Pricing = () => {
       : projects.filter((item) => item.category === selectedCategory);
 
   return (
-    <section id="pricing" className="py-16 px-4 sm:px-6 lg:px-20 bg-white">
+    <section id="pricing" className="py-16 px-4 sm:px-6 lg:px-20 bg-white-500">
       <div className="max-w-5xl mx-auto text-center">
         <motion.h2
           initial={{ opacity: 0, y: 50 }}
@@ -65,7 +66,7 @@ const Pricing = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.6 }}
-          className="text-black mb-6"
+          className="text-black-500 mb-6"
         >
           Pilihan Bus Pariwisata Biru untuk Perjalanan Anda
         </motion.p>
@@ -84,84 +85,91 @@ const Pricing = () => {
           </select>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 justify-center">
-          {filteredProjects.map((project, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              whileInView={{ opacity: 1, scale: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
-              viewport={{ once: false, amount: 0.2 }}
-              className="group bg-white max-w-sm w-full mx-auto rounded-lg shadow-md overflow-hidden transform transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl"
-            >
-              <div className="relative h-48 w-full">
-<Image
-  src={project.imageUrl}
-  alt={project.title}
-  width={500}
-  height={300}
-  className="rounded-lg"
-/>
-
-              </div>
-              <div className="p-4 flex flex-col flex-grow text-left">
-                <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-500 transition-colors duration-300">
-                  {project.title}
-                </h3>
-                <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-4">
-                  <p className="flex items-center gap-2">
-                    <MdAirlineSeatReclineNormal /> Seat: {project.description?.seat}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaVideo /> CCTV: {project.description?.cctv}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaTv /> TV: {project.description?.tv}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <GiMicrophone /> Audio: {project.description?.audio}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaSmoking /> Smoking: {project.description?.smoking}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaToilet /> Toilet: {project.description?.toilet}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaFireExtinguisher /> APAR
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <FaHammer /> Palu Darurat
-                  </p>
+        {filteredProjects.length === 0 ? (
+          <p className="text-center text-gray-500">Data bus belum tersedia...</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                initial={{ opacity: 0, scale: 0.9, y: 30 }}
+                whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
+                viewport={{ once: false, amount: 0.2 }}
+                className="group bg-white max-w-sm w-full rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl mx-auto"
+              >
+                <div className="relative h-48 w-full">
+                  <Image
+                    src={project.image}
+                    alt={project.title}
+                    layout="fill"
+                    objectFit="cover"
+                  />
                 </div>
-
-                <div className="mt-auto flex justify-center">
-                  <div className="relative inline-block w-full">
-                    <select
-                      onChange={(e) => {
-                        if (e.target.value) window.open(e.target.value, "_blank");
-                      }}
-                      className="appearance-none w-full bg-blue-500 from-indigo-600 to-blue-500 text-white-500 text-sm font-medium px-4 py-2 pr-8 rounded-xl shadow hover:from-indigo-700 hover:to-blue-200 transition duration-300 cursor-pointer"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        Sewa
-                      </option>
-                      {Object.entries(marketingOptions).map(([label, link]) => (
-                        <option key={label} value={link}>
-                          {label}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white-500">
-                      ▼
-                    </div>
+                <div className="p-4 flex flex-col flex-grow text-left">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-2 group-hover:text-blue-500 transition-colors duration-300">
+                    {project.title}
+                  </h3>
+                  <div className="grid grid-cols-2 gap-2 text-xs text-gray-700 mb-4">
+                    <p className="flex items-center gap-2">
+                      <MdAirlineSeatReclineNormal /> Seat: {project.seat}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaVideo /> CCTV: {project.cctv}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaTv /> TV: {project.tv}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <GiMicrophone /> Audio: {project.audio}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaSmoking /> Smoking: {project.smoking}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaToilet /> Toilet: {project.toilet}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaFireExtinguisher /> APAR
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaHammer /> Palu Darurat
+                    </p>
                   </div>
+
+                  {Array.isArray(project.marketing_phones) &&
+                    project.marketing_phones.length > 0 && (
+                      <div className="mt-auto flex justify-center">
+                        <div className="relative inline-block w-full">
+                          <select
+                            onChange={(e) => {
+                              if (e.target.value) {
+                                window.open(e.target.value, "_blank");
+                              }
+                            }}
+                            className="appearance-none w-full bg-blue-500 text-white-500 text-sm font-medium px-4 py-2 pr-8 rounded-xl shadow hover:bg-blue-600 transition duration-300 cursor-pointer"
+                            defaultValue=""
+                          >
+                            <option value="" disabled>
+                              Sewa
+                            </option>
+                            {project.marketing_phones.map((entry, i) => (
+                              <option key={i} value={entry.link}>
+                                {entry.label}
+                              </option>
+                            ))}
+                          </select>
+                          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-white-500">
+                            ▼
+                          </div>
+                        </div>
+                      </div>
+                    )}
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );

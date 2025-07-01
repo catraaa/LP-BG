@@ -1,10 +1,8 @@
-// pages/admin/login.js
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../../firebaseConfig";
+import { supabase } from "@/lib/supabase";
 
-export default function Login() {
+export default function LoginAdmin() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,22 +10,23 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    const auth = getAuth(app);
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      localStorage.setItem("isAdmin", "true");
-      localStorage.setItem("adminEmail", email);
-      router.push("/admin/dashboard");
-    } catch (error) {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    if (error) {
       alert("Login gagal: " + error.message);
+    } else {
+      localStorage.setItem("isAdmin", "true");
+      router.push("/admin/dashboard");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form onSubmit={handleLogin} className="bg-white p-6 rounded shadow w-80">
+      <form onSubmit={handleLogin} className="bg-white-500 p-6 rounded shadow w-80">
         <h2 className="text-lg font-bold mb-4 text-center">Login Admin</h2>
-
         <input
           type="email"
           className="w-full px-4 py-2 border rounded mb-4"
@@ -36,7 +35,6 @@ export default function Login() {
           onChange={(e) => setEmail(e.target.value)}
           required
         />
-
         <input
           type="password"
           className="w-full px-4 py-2 border rounded mb-4"
@@ -45,10 +43,9 @@ export default function Login() {
           onChange={(e) => setPassword(e.target.value)}
           required
         />
-
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          className="w-full bg-blue-600 text-white-500 py-2 rounded hover:bg-blue-700"
         >
           Login
         </button>
