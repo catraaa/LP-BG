@@ -1,4 +1,3 @@
-// File: pages/admin/FooterContactForm.js
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -22,6 +21,7 @@ const FooterContactForm = () => {
   const fetchContacts = async () => {
     const { data, error } = await supabase.from("footer_contacts").select("*");
     if (!error) setContacts(data);
+    else console.error("Fetch error:", error);
   };
 
   const handleChange = (e) => {
@@ -47,27 +47,52 @@ const FooterContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    const payload = {
+      region: form.region,
+      address: form.address,
+      email: form.email,
+      phones: Array.isArray(form.phones) ? form.phones : [],
+    };
+
     if (editingId) {
-      await supabase.from("footer_contacts").update(form).eq("id", editingId);
+      const { error } = await supabase
+        .from("footer_contacts")
+        .update(payload)
+        .eq("id", editingId);
+      if (error) console.error("Update error:", error);
     } else {
-      await supabase.from("footer_contacts").insert([form]);
+      const { error } = await supabase.from("footer_contacts").insert([payload]);
+      if (error) console.error("Insert error:", error);
     }
+
     resetForm();
     fetchContacts();
   };
 
   const resetForm = () => {
-    setForm({ region: "", address: "", email: "", phones: [{ label: "", link: "" }] });
+    setForm({
+      region: "",
+      address: "",
+      email: "",
+      phones: [{ label: "", link: "" }],
+    });
     setEditingId(null);
   };
 
   const handleEdit = (contact) => {
-    setForm(contact);
+    setForm({
+      region: contact.region,
+      address: contact.address,
+      email: contact.email,
+      phones: Array.isArray(contact.phones) ? contact.phones : [],
+    });
     setEditingId(contact.id);
   };
 
   const handleDelete = async (id) => {
-    await supabase.from("footer_contacts").delete().eq("id", id);
+    const { error } = await supabase.from("footer_contacts").delete().eq("id", id);
+    if (error) console.error("Delete error:", error);
     fetchContacts();
   };
 
@@ -109,7 +134,9 @@ const FooterContactForm = () => {
           />
 
           <div className="col-span-2">
-            <label className="block font-semibold mb-2">Nomor WhatsApp Marketing (maks. 5):</label>
+            <label className="block font-semibold mb-2">
+              Nomor WhatsApp Marketing (maks. 5):
+            </label>
             {form.phones.map((phone, index) => (
               <div key={index} className="flex gap-2 mb-2">
                 <input
@@ -127,12 +154,24 @@ const FooterContactForm = () => {
                   className="border p-2 rounded w-1/2"
                 />
                 {form.phones.length > 1 && (
-                  <button type="button" onClick={() => removePhoneField(index)} className="text-white-500">Hapus</button>
+                  <button
+                    type="button"
+                    onClick={() => removePhoneField(index)}
+                    className="text-red-600"
+                  >
+                    Hapus
+                  </button>
                 )}
               </div>
             ))}
             {form.phones.length < 5 && (
-              <button type="button" onClick={addPhoneField} className="text-blue-600">+ Tambah Nomor</button>
+              <button
+                type="button"
+                onClick={addPhoneField}
+                className="text-blue-600 mt-2"
+              >
+                + Tambah Nomor
+              </button>
             )}
           </div>
 
@@ -163,10 +202,16 @@ const FooterContactForm = () => {
                 ))}
               </div>
               <div className="flex gap-2 mt-3">
-                <button onClick={() => handleEdit(c)} className="bg-yellow-400 text-blue-700 px-3 py-1 rounded">
+                <button
+                  onClick={() => handleEdit(c)}
+                  className="bg-yellow-400 text-blue-700 px-3 py-1 rounded"
+                >
                   Edit
                 </button>
-                <button onClick={() => handleDelete(c.id)} className="bg-red-500 text-white-500 px-3 py-1 rounded">
+                <button
+                  onClick={() => handleDelete(c.id)}
+                  className="bg-red-500 text-white-500 px-3 py-1 rounded"
+                >
                   Hapus
                 </button>
               </div>

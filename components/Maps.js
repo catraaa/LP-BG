@@ -10,7 +10,7 @@ const locations = [
       "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3951.3804565380626!2d112.6423412!3d-7.9474565!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd629a147ce7b9b%3A0xa0f760ecbc6154af!2sBagong%20Biru%20Pariwisata!5e0!3m2!1sid!2sid!4v1719054099999!5m2!1sid!2sid",
   },
   {
-    name: "Office Bekasi",
+    name: "Office Jabodetabek",
     address:
       "Jl. Diponegoro No.102, Jatimulya, Kec. Tambun Sel., Kabupaten Bekasi, Jawa Barat 17510",
     mapSrc:

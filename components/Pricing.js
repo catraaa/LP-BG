@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { supabase } from "@/lib/supabase";
+import { GiWaterBottle } from "react-icons/gi";
+
 
 import {
   FaToilet,
@@ -118,22 +120,28 @@ const Pricing = () => {
                       <FaVideo /> CCTV: {project.cctv}
                     </p>
                     <p className="flex items-center gap-2">
-                      <FaTv /> TV: {project.tv}
+                      <FaTv /> Smart TV: {project.tv}
                     </p>
                     <p className="flex items-center gap-2">
-                      <GiMicrophone /> Audio: {project.audio}
+                      <GiMicrophone /> Audio Android: {project.audio}
                     </p>
                     <p className="flex items-center gap-2">
-                      <FaSmoking /> Smoking: {project.smoking}
+                      <FaSmoking /> Smoking Area: {project.smoking}
                     </p>
                     <p className="flex items-center gap-2">
                       <FaToilet /> Toilet: {project.toilet}
                     </p>
                     <p className="flex items-center gap-2">
-                      <FaFireExtinguisher /> APAR
+                      <GiPillow /> Bantal Selimut: {project.bantal_selimut || "-"}
                     </p>
                     <p className="flex items-center gap-2">
-                      <FaHammer /> Palu Darurat
+                      <GiWaterBottle /> Dispenser: {project.dispenser || "-"}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaFireExtinguisher /> APAR {project.apar}
+                    </p>
+                    <p className="flex items-center gap-2">
+                      <FaHammer /> Safety Hammer {project.safety_hammer}
                     </p>
                   </div>
 

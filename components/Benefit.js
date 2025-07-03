@@ -49,7 +49,7 @@ const Benefit = () => {
           <div className="w-16 h-1 mb-6 mx-auto lg:mx-0 bg-blue-500 group-hover:bg-red-500 transition-colors duration-300 rounded-full" />
 
           <p className="text-sm lg:text-base mb-6 text-black group-hover:text-white-500 transition-colors duration-300">
-            Bagong Pariwisata menyediakan transportasi sewa berupa bus pariwisata Big Bus, Medium Canter Bus, Medium Long Bus, dan Hiace Premio dengan body AVANTE H7 Facelift dan sasis HINO EURO 4. Kami melayani overland Jawa–Bali, Luar Pulau, Ziarah Wali, MICE, Study Tour, dan City Tour.
+            Bagong Pariwisata menyediakan transportasi sewa berupa bus pariwisata Big Bus, Medium Canter Bus, Medium Long Bus, dan Hiace Premio dengan body AVANTE H7, AVANTE H8, Legacy SR2, Legacy SR3, Jetbus 5 MHD, Jetbus 5 SHD, Navigator dan sasis HINO RK280, HINO RM280, HINO RN285, MERCEDES BENZ OH 1626, MERCEDES BENZ OF 917, MITSUBSHI CANTER EURO 4, MITSUBSHI CANTER EURO 2. Kami melayani overland Jawa–Bali, Luar Pulau, Ziarah Wali, MICE, Study Tour, dan City Tour.
           </p>
 
           {/* Tab Button */}
