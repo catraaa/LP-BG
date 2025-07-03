@@ -11,7 +11,7 @@ const Galeri = () => {
 
   const fetchGallery = async () => {
     const { data, error } = await supabase
-      .from("galleries") // ✅ fix typo: was "galeries"
+      .from("galleries")
       .select("*")
       .order("created_at", { ascending: false });
 
@@ -51,6 +51,7 @@ const Galeri = () => {
             key={item.id}
             thumbs={item.images}
             caption={item.caption}
+            mainImage={item.main_image}
           />
         ))}
       </Slider>
@@ -58,8 +59,10 @@ const Galeri = () => {
   );
 };
 
-const GalleryItem = ({ thumbs, caption }) => {
-  const [selectedImage, setSelectedImage] = useState(thumbs[0]);
+const GalleryItem = ({ thumbs, caption, mainImage }) => {
+  const [selectedImage, setSelectedImage] = useState(
+    thumbs.find((img) => img === mainImage) || thumbs[0]
+  );
 
   return (
     <div className="px-2">
@@ -90,6 +93,11 @@ const GalleryItem = ({ thumbs, caption }) => {
               layout="fill"
               objectFit="cover"
             />
+            {thumb === mainImage && (
+              <div className="absolute top-0 left-0 bg-blue-600 text-white text-[10px] px-1 rounded-br">
+              
+              </div>
+            )}
           </div>
         ))}
       </div>

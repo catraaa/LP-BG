@@ -11,7 +11,7 @@ const Hero = () => {
         className="absolute inset-0 bg-cover bg-center z-0"
         style={{
           backgroundImage: "url('/assets/Hero.jpeg')",
-          filter: "brightness(0.2)",
+          filter: "brightness(0.1)",
         }}
       />
 

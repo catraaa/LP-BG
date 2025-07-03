@@ -84,7 +84,7 @@ const Faq = () => {
             <div className="relative flex justify-center lg:justify-end">
               <div className="lg:absolute lg:-top-48">
                 <Image
-                  src="/assets/HP.png"
+                  src="/assets/2.png"
                   alt="Gambar Tentang Kami"
                   width={210}
                   height={400}

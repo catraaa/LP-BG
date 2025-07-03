@@ -71,12 +71,11 @@ const BusForm = () => {
     const fileName = `${Date.now()}_${imageFile.name}`;
     const path = `gallery/${fileName}`;
 
-    const { data, error } = await supabase.storage
+    const { error } = await supabase.storage
       .from("bus-images")
       .upload(path, imageFile);
 
     if (error) {
-      console.error("Upload error:", error.message);
       alert("Gagal upload gambar: " + error.message);
       return null;
     }
@@ -91,10 +90,8 @@ const BusForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Mulai submit...");
 
     const imageUrl = imageFile ? await handleUpload() : form.image || null;
-    console.log("Hasil upload:", imageUrl);
 
     const busData = {
       ...form,
@@ -142,27 +139,54 @@ const BusForm = () => {
 
   return (
     <div className="p-6 w-full">
-      <h2 className="text-2xl font-bold mb-4">Tambah / Edit Data Bus</h2>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-        {["title", "category", "seat", "toilet", "smoking", "cctv", "tv", "audio", "bantal_selimut", "dispenser"].map((key) => (
-          <input
-            key={key}
-            name={key}
-            value={form[key] || ""}
-            onChange={handleChange}
-            placeholder={key}
-            className="border p-2 w-full"
-          />
+      <h2 className="text-2xl font-bold mb-4">
+        {editingId ? "Edit Data Bus" : "Tambah Data Bus"}
+      </h2>
+
+      {/* Form Input */}
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8"
+      >
+        {/* Input teks dengan label */}
+        {[
+          { name: "title", label: "Judul Bus" },
+          { name: "category", label: "Kategori" },
+          { name: "seat", label: "Jumlah Seat (misal: 14+1)" },
+          { name: "toilet", label: "Toilet" },
+          { name: "smoking", label: "Smoking Area" },
+          { name: "cctv", label: "CCTV" },
+          { name: "tv", label: "Smart TV" },
+          { name: "audio", label: "Audio Android" },
+          { name: "bantal_selimut", label: "Bantal & Selimut" },
+          { name: "dispenser", label: "Dispenser" },
+        ].map(({ name, label }) => (
+          <div key={name} className="flex flex-col">
+            <label htmlFor={name} className="font-medium text-sm mb-1">
+              {label}
+            </label>
+            <input
+              id={name}
+              name={name}
+              value={form[name] || ""}
+              onChange={handleChange}
+              placeholder={label}
+              className="border p-2 rounded"
+            />
+          </div>
         ))}
 
+        {/* Checkbox */}
         <label className="flex items-center gap-2 col-span-2">
           <input
             type="checkbox"
             name="apar"
             checked={form.apar || false}
-            onChange={(e) => setForm((prev) => ({ ...prev, apar: e.target.checked }))}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, apar: e.target.checked }))
+            }
           />
-          APAR
+          <span className="text-sm font-medium">APAR</span>
         </label>
 
         <label className="flex items-center gap-2 col-span-2">
@@ -171,55 +195,86 @@ const BusForm = () => {
             name="safety_hammer"
             checked={form.safety_hammer || false}
             onChange={(e) =>
-              setForm((prev) => ({ ...prev, safety_hammer: e.target.checked }))
+              setForm((prev) => ({
+                ...prev,
+                safety_hammer: e.target.checked,
+              }))
             }
           />
-          Safety Hammer
+          <span className="text-sm font-medium">Safety Hammer</span>
         </label>
 
+        {/* Marketing Phones */}
         <div className="col-span-2">
-          <label className="block font-semibold mb-1">Nomor WhatsApp Marketing (maks. 5):</label>
+          <label className="block font-semibold mb-1">
+            Nomor WhatsApp Marketing (maks. 5):
+          </label>
           {form.marketing_phones.map((phone, index) => (
             <div key={index} className="flex gap-2 mb-2">
               <input
                 type="text"
                 value={phone.label}
-                onChange={(e) => handlePhoneChange(index, "label", e.target.value)}
+                onChange={(e) =>
+                  handlePhoneChange(index, "label", e.target.value)
+                }
                 placeholder="Label"
                 className="border p-2 w-1/2"
               />
               <input
                 type="text"
                 value={phone.link}
-                onChange={(e) => handlePhoneChange(index, "link", e.target.value)}
+                onChange={(e) =>
+                  handlePhoneChange(index, "link", e.target.value)
+                }
                 placeholder="Link WhatsApp"
                 className="border p-2 w-1/2"
               />
               {form.marketing_phones.length > 1 && (
-                <button type="button" onClick={() => removePhoneField(index)} className="text-red-500">
+                <button
+                  type="button"
+                  onClick={() => removePhoneField(index)}
+                  className="text-red-500"
+                >
                   Hapus
                 </button>
               )}
             </div>
           ))}
           {form.marketing_phones.length < 5 && (
-            <button type="button" onClick={addPhoneField} className="text-blue-500 mt-1">
+            <button
+              type="button"
+              onClick={addPhoneField}
+              className="text-blue-500 mt-1"
+            >
               + Tambah Nomor
             </button>
           )}
         </div>
 
-        <input type="file" onChange={onImageChange} />
-        <button type="submit" className="bg-blue-500 text-white-500 px-4 py-2 rounded">
+        {/* Upload gambar */}
+        <div className="col-span-2">
+          <label className="block font-semibold mb-1">Upload Gambar</label>
+          <input type="file" onChange={onImageChange} />
+        </div>
+
+        <button
+          type="submit"
+          className="bg-blue-500 text-white-500 px-4 py-2 rounded col-span-2"
+        >
           {editingId ? "Update" : "Tambah"} Bus
         </button>
       </form>
 
+      {/* Daftar Bus */}
       <h2 className="text-2xl font-bold mb-4">Daftar Data Bus</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {buses.map((bus) => (
           <div key={bus.id} className="border p-4 rounded">
-            <img src={bus.image} alt={bus.title} className="w-full h-40 object-cover mb-2" />
+            <img
+              src={bus.image}
+              alt={bus.title}
+              className="w-full h-40 object-cover mb-2"
+            />
             <h3 className="font-semibold text-lg mb-2">{bus.title}</h3>
             <ul className="text-sm space-y-1 mb-2">
               <li>Seat: {bus.seat}</li>
@@ -235,14 +290,22 @@ const BusForm = () => {
             </ul>
             <div className="text-xs text-blue-600 space-y-1 mb-2">
               {bus.marketing_phones?.map((item, i) => (
-                <div key={i}>{item.label}: {item.link}</div>
+                <div key={i}>
+                  {item.label}: {item.link}
+                </div>
               ))}
             </div>
             <div className="flex justify-between">
-              <button className="bg-yellow-400 text-red-500 px-3 py-1 rounded" onClick={() => handleEdit(bus)}>
+              <button
+                className="bg-yellow-400 text-red-500 px-3 py-1 rounded"
+                onClick={() => handleEdit(bus)}
+              >
                 Edit
               </button>
-              <button className="bg-red-500 text-white-500 px-3 py-1 rounded" onClick={() => handleDelete(bus.id)}>
+              <button
+                className="bg-red-500 text-white-500 px-3 py-1 rounded"
+                onClick={() => handleDelete(bus.id)}
+              >
                 Hapus
               </button>
             </div>

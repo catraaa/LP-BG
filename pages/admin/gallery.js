@@ -55,6 +55,7 @@ const AdminGallery = () => {
       {
         caption,
         images,
+        main_image: images[0],
       },
     ]);
 
@@ -87,6 +88,19 @@ const AdminGallery = () => {
       fetchGallery();
     } else {
       console.error("Update error:", error);
+    }
+  };
+
+  const handleSetMainImage = async (galleryId, imageUrl) => {
+    const { error } = await supabase
+      .from("galleries")
+      .update({ main_image: imageUrl })
+      .eq("id", galleryId);
+
+    if (!error) {
+      fetchGallery();
+    } else {
+      console.error("Error setting main image:", error);
     }
   };
 
@@ -144,6 +158,21 @@ const AdminGallery = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {gallery.map((item) => (
             <div key={item.id} className="border rounded shadow-sm p-4 bg-white">
+              {item.main_image && (
+                <div className="mb-2">
+                  <Image
+                    src={item.main_image}
+                    alt="Main"
+                    width={300}
+                    height={180}
+                    className="rounded object-cover border-2 border-blue-600"
+                  />
+                  <p className="text-sm text-blue-600 font-semibold text-center mt-1">
+                    Foto Utama
+                  </p>
+                </div>
+              )}
+
               {editingId === item.id ? (
                 <form onSubmit={handleEditSubmit}>
                   <input
@@ -173,14 +202,23 @@ const AdminGallery = () => {
                   <h2 className="font-semibold mb-2">{item.caption}</h2>
                   <div className="flex flex-wrap gap-2 mb-2">
                     {item.images?.map((url, i) => (
-                      <Image
-                        key={i}
-                        src={url}
-                        alt={`img-${i}`}
-                        width={100}
-                        height={60}
-                        className="rounded object-cover"
-                      />
+                      <div key={i} className="relative">
+                        <Image
+                          src={url}
+                          alt={`img-${i}`}
+                          width={100}
+                          height={60}
+                          className={`rounded object-cover border ${item.main_image === url ? "border-blue-500 border-2" : "border-gray-200"}`}
+                        />
+                        {item.main_image !== url && (
+                          <button
+                            onClick={() => handleSetMainImage(item.id, url)}
+                            className="absolute top-0 right-0 bg-black bg-opacity-50 bg-blue-500 text-white-500 text-xs px-1 py-0.5 rounded-bl"
+                          >
+                            Jadikan Utama
+                          </button>
+                        )}
+                      </div>
                     ))}
                   </div>
                   <div className="flex gap-4 text-sm">
