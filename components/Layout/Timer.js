@@ -39,7 +39,7 @@ const FloatingMarketing = () => {
                 height={20}
                 className="shrink-0"
               />
-              <span className="truncate">{item.label}</span>
+              <span className="truncate min-w-0">{item.label}</span>
             </a>
           ))}
         </div>
