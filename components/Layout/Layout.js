@@ -4,7 +4,6 @@ import Header from "./Header";
 import Timer from "./Timer";
 import { useRouter } from "next/router";
 
-// Layout.js
 const Layout = ({ children }) => {
   const router = useRouter();
   const isAdminRoute = router.pathname.startsWith("/admin");
@@ -17,9 +16,12 @@ const Layout = ({ children }) => {
           <Timer />
         </div>
       )}
-      <div className={isAdminRoute ? "" : "relative z-10"}>
+      
+      {/* PERBAIKAN DI SINI: ubah z-10 -> z-0 */}
+      <div className={isAdminRoute ? "" : "relative z-0"}>
         {children}
       </div>
+      
       {!isAdminRoute && <Footer />}
     </>
   );

@@ -6,6 +6,7 @@ import Faq from "../components/Faq";
 import Maps from "../components/Maps";
 import Benefit from "../components/Benefit";
 
+
 export default function Home() {
   return (
     <>
