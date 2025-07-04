@@ -9,7 +9,7 @@ const FloatingMarketing = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const { data, error } = await supabase
+      const { data } = await supabase
         .from("marketing_contacts")
         .select("*")
         .order("created_at", { ascending: true });
@@ -20,10 +20,9 @@ const FloatingMarketing = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-24 right-4 md:bottom-14 md:right-10 z-[9999] max-w-[90vw]">
-      {/* Box Marketing */}
+    <div className="fixed bottom-24 right-4 z-[9999] max-w-[90vw] md:bottom-14 md:right-10">
       {open && (
-        <div className="bg-white-500 shadow-xl rounded-xl p-4 mb-3 border border-blue-500 w-[270px] sm:w-72 max-w-full overflow-hidden">
+        <div className="bg-white-500 shadow-xl rounded-xl p-4 mb-3 border border-blue-500 w-[270px] sm:w-72 max-w-full">
           <h4 className="font-bold text-center text-black mb-3">Marketing</h4>
           <div className="flex flex-col gap-2">
             {marketings.map((item) => (
@@ -48,7 +47,6 @@ const FloatingMarketing = () => {
         </div>
       )}
 
-      {/* Tombol Contact Us */}
       <button
         onClick={() => setOpen(!open)}
         className="bg-hijau-500 hover:bg-hijau-600 text-white-500 font-semibold px-4 py-2 rounded-full shadow-lg transition-all flex items-center gap-2 text-sm md:text-base w-fit"
