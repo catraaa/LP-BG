@@ -5,8 +5,6 @@ import Galeri from "../components/Galeri";
 import Faq from "../components/Faq";
 import Maps from "../components/Maps";
 import Benefit from "../components/Benefit";
-import Timer from "../components/Layout/Timer";
-
 
 export default function Home() {
   return (
@@ -18,7 +16,6 @@ export default function Home() {
       <Galeri />
       <Faq/>
       <Maps />
-      <Timer />
     </>
   );
 }

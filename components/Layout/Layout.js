@@ -1,6 +1,7 @@
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import Timer from "./Timer"; // isinya FloatingMarketing
 import { useRouter } from "next/router";
 
 const Layout = ({ children }) => {
@@ -9,13 +10,18 @@ const Layout = ({ children }) => {
 
   return (
     <>
+      {/* Header hanya tampil kalau bukan route admin */}
       {!isAdminRoute && <Header />}
-      
-      {/* PERBAIKAN DI SINI: ubah z-10 -> z-0 */}
+
+      {/* Timer (FloatingMarketing) dipindah ke sini */}
+      {!isAdminRoute && <Timer />}
+
+      {/* Konten utama */}
       <div className={isAdminRoute ? "" : "relative z-0"}>
         {children}
       </div>
-      
+
+      {/* Footer hanya tampil kalau bukan route admin */}
       {!isAdminRoute && <Footer />}
     </>
   );
