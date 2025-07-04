@@ -62,6 +62,13 @@ li.check:before {
   @apply bg-orange-500 rounded-l-full rounded-r-full w-12;
 }
 
+html, body {
+  overflow-x: hidden; /* jangan hidden total ya! */
+  height: auto;
+  min-height: 100%;
+}
+
+
 /* purgecss end ignore */
 @tailwind utilities;
 /* purgecss start ignore */
