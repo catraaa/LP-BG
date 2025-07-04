@@ -20,36 +20,35 @@ const FloatingMarketing = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-24 right-4 left-4 md:right-10 md:left-auto z-[9999] overflow-visible">
+    <div className="fixed bottom-6 right-6 z-[9999]">
+      {/* Dropdown Kontak */}
       {open && (
-        <div className="bg-white shadow-xl rounded-xl p-4 mb-3 border border-blue-500 w-full max-w-xs md:max-w-sm">
-          <h4 className="font-bold text-center text-black mb-3">Marketing</h4>
-          <div className="max-h-64 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 pr-2">
-            {marketings.map((item) => (
-              <a
-                key={item.id}
-                href={`https://wa.me/${item.number}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-md mb-2 transition-all w-full"
-              >
-                <Image
-                  src="/assets/Icon/wa.png"
-                  alt="WA"
-                  width={20}
-                  height={20}
-                  className="shrink-0"
-                />
-                <span className="truncate">{item.label}</span>
-              </a>
-            ))}
-          </div>
+        <div className="absolute bottom-16 right-0 bg-white-500 rounded-xl shadow-lg border border-red-500 w-64 p-4">
+          <h4 className="text-center font-bold text-black mb-3">Marketing</h4>
+          {marketings.map((item) => (
+            <a
+              key={item.id}
+              href={`https://wa.me/${item.number}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 bg-blue-500 hover:bg-blue-500 text-white-500 text-sm font-semibold px-4 py-2 rounded-md mb-2 transition-all"
+            >
+              <Image
+                src="/assets/Icon/wa.png"
+                alt="WA"
+                width={20}
+                height={20}
+              />
+              <span>{item.label}</span>
+            </a>
+          ))}
         </div>
       )}
 
+      {/* Tombol Utama */}
       <button
         onClick={() => setOpen(!open)}
-        className="bg-hijau-500 hover:bg-hijau-600 text-white font-semibold px-5 py-3 rounded-full shadow-lg transition-all flex items-center gap-2 text-sm md:text-base w-full max-w-xs md:max-w-sm"
+        className="bg-blue-500 hover:bg-blue-500 text-white-500 font-semibold px-5 py-3 rounded-full shadow-lg transition-all flex items-center gap-2"
       >
         <Image
           src="/assets/Icon/wa.png"
