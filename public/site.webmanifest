@@ -1,12 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/web-manifest-combined.json",
-  "name": "Sarana Teknik",
-  "short_name": "Sarana Teknik",
+  "name": "bagongbirupariwisata",
+  "short_name": "bagongbirupariwisata",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFF",
   "theme_color": "#F53838",
-  "description": "Sarana Teknik",
+  "description": "Bagong Biru Pariwisata",
   "icons": [
     {
       "src": "/assets/logo.png",
