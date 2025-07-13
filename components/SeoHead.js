@@ -12,7 +12,7 @@ const defaultMeta = {
   robots: "follow, index",
   // change with url of your image (recommended dimension = 1.91:1)
   // used in twitter, facebook, etc. card when link copied in tweet/status
-  image: "/assets/logo.png",
+  image: "/assets/bm.png",
   author: "Beni Tiyas Kristanti",
 };
 
@@ -88,7 +88,7 @@ const favicons = [
   {
     rel: "apple-touch-icon",
     sizes: "57x57",
-    href: "/assets/logo.png",
+    href: "/assets/bm.png",
   },
   {
     rel: "apple-touch-icon",
