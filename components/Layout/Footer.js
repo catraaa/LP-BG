@@ -40,7 +40,7 @@ const Footer = () => {
           </div>
           <p className="mb-2 text-sm md:text-base">
             <strong className="font-semibold">Bagong Biru Pariwisata</strong> -
-            Bagong Pariwisata berfokus dalam menyewakan bus pariwisata yaitu Big Bus, Medium Canter Bus, Medium Long Bus, Micro Bus dan Hiace Premio.
+            Bagong Biru Pariwisata berfokus dalam menyewakan bus pariwisata yaitu Big Bus, Medium Canter Bus, Medium Long Bus, Micro Bus dan Hiace Premio.
             Kami siap melayani perjalanan dalam maupun luar provinsi.
           </p>
           <div className="flex mt-2 space-x-4">

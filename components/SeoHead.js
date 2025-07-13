@@ -76,7 +76,7 @@ const SeoHead = (props) => {
       ))}
       {/* Windows 8 app icon */}
       <meta name="msapplication-TileColor" content="#F53838" />
-      <meta name="msapplication-TileImage" content="/assets/logo.png" />
+      <meta name="msapplication-TileImage" content="/assets/bm.png" />
       {/* Accent color on supported browser */}
       <meta name="theme-color" content="#F53838" />
     </Head>
