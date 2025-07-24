@@ -125,13 +125,16 @@ const Pricing = () => {
                     <p className="flex items-center gap-2">
                       <GiMicrophone /> Audio Android: {project.audio}
                     </p>
-                    <p className="flex items-center gap-2">
-                      <FaSmoking /> Smoking Area: {project.smoking}
-                    </p>
-                    <p className="flex items-center gap-2">
-                      <FaToilet /> Toilet: {project.toilet}
-                    </p>
-                    <p className="flex items-center gap-2">
+{project.smoking && project.smoking !== "-" && (
+  <p className="flex items-center gap-2">
+    <FaSmoking /> Smoking Area: {project.smoking}
+  </p>
+)}
+{project.toilet && project.toilet !== "-" && (
+    <p className="flex items-center gap-2">
+      <FaToilet /> Toilet: {project.toilet}
+    </p>
+  )}                    <p className="flex items-center gap-2">
                       <GiPillow /> Bantal Selimut: {project.bantal_selimut || "-"}
                     </p>
                     <p className="flex items-center gap-2">
